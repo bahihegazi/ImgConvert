@@ -8,7 +8,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend'))); // frontend folder
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 const uploadDir = path.join(__dirname, 'uploads');
 fs.mkdirSync(uploadDir, { recursive: true });
@@ -22,13 +22,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// رفع الصور
 app.post('/upload', upload.array('images'), (req, res) => {
   const files = req.files.map(f => ({ name: path.basename(f.filename) }));
   res.json({ files });
 });
 
-// حذف صورة
 app.delete('/delete/:filename', (req, res) => {
   const filePath = path.join(uploadDir, req.params.filename);
   fs.unlink(filePath, err => {
@@ -37,7 +35,6 @@ app.delete('/delete/:filename', (req, res) => {
   });
 });
 
-// تحويل الصور
 app.post('/convert', async (req, res) => {
   const { files } = req.body;
   if (!files || !Array.isArray(files)) {
@@ -88,7 +85,6 @@ app.post('/convert', async (req, res) => {
 });
 
 
-// تحميل صورة محوّلة بشكل فردي
 app.get('/download/:filename', (req, res) => {
   const filePath = path.join(uploadDir, req.params.filename);
   if (fs.existsSync(filePath)) {
@@ -98,10 +94,9 @@ app.get('/download/:filename', (req, res) => {
   }
 });
 
-// حذف الصور الأقدم من 30 دقيقة تلقائيًا كل دقيقة
 setInterval(() => {
   const now = Date.now();
-  const cutoff = now - 30 * 60 * 1000; // 30 دقيقة
+  const cutoff = now - 30 * 60 * 1000;
   fs.readdir(uploadDir, (err, files) => {
     if (err) return;
     files.forEach(file => {
@@ -114,7 +109,7 @@ setInterval(() => {
       });
     });
   });
-}, 60 * 1000); // كل دقيقة
+}, 60 * 1000);
 
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
