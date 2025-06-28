@@ -21,6 +21,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body>
@@ -59,14 +61,17 @@
                         </p>
                     </div>
                     <div class="upload-file">
-                        <div class="browse-box">
+                        <div class="browse-box" id="drop-area">
+                            <input type="file" id="fileElem" multiple accept="image/*" style="display:none">
                             <i class="fa-solid fa-arrow-up-from-bracket"></i>
                             <p>Drop your image here or click to browse</p>
                         </div>
                     </div>
+                    <div class="preview-list" id="preview-list"></div>
                     <div class="submit">
-                        <a href="#" class="btn">Choose File</a>
+                        <a href="#" class="btn" id="chooseFileBtn">Choose File</a>
                     </div>
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
                     <div class="features">
                         <div class="feature">
                             <i class="fa-solid fa-shield-halved"></i>
@@ -276,6 +281,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" crossorigin="anonymous"
         referrerpolicy="no-referrer"></script>
 
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="./js/main.js"></script>
